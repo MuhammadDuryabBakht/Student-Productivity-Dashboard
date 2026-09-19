@@ -136,7 +136,7 @@ body{
    Assignments
 ========================= */
 
-.assignment-section {
+.tasks-section {
     background-color: white;
     padding: 25px;
     border-radius: 12px;
@@ -157,7 +157,7 @@ body{
     color: #6b7280;
 }
 
-#addAssignmentBtn {
+#addTaskBtn {
     border: none;
     padding: 12px 18px;
     border-radius: 8px;
@@ -165,13 +165,14 @@ body{
     background-color: #2563eb;
     color: white;
     font-size: 14px;
+    transition: background-color 0.3s ease;
 }
 
-#addAssignmentBtn:hover {
+#addTaskBtn:hover {
     background-color: #1d4ed8;
 }
 
-.assignment-list {
+.tasks-list {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -223,4 +224,68 @@ body{
         gap: 15px;
     }
 
+}
+
+/* =========================
+   Task Adding Form
+========================= */
+
+.task-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.task-form input {
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+}
+.task-form button {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #2563eb;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+.task-form button:hover{
+    background-color: #1d4ed8;
+}
+.hidden {
+    display: none;
+}
+
+.task-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background-color: #f9fafb;
+}
+.task-card button {
+  background-color: #ef4444; /* soft red */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.3s ease;
+}
+
+.task-card button:hover {
+  background-color: #dc2626; /* darker red on hover */
+}
+
+.task-card h3 {
+    margin-bottom: 6px;
+}
+.task-card p {
+    color: #6b7280;
+    margin-bottom: 3px;
 }

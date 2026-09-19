@@ -55,7 +55,7 @@
                     <p id="courseCount">0</p>
                 </div>
                 <div class="stat-card">
-                    <h3>Total Assignments</h3>
+                    <h3>Total Tasks</h3>
                     <p id="assignmentCount">0</p>
                 </div>
                 <div class="stat-card">
@@ -68,21 +68,41 @@
                 </div>
             </section>
 
-            <!--Assignment Section-->
+            <!--Tasks Section-->
 
-            <section class="assignment-section">
+            <section class="tasks-section">
                 <div class="section-header">
                     <div>
-                        <h2>Upcoming Assignments</h2>
+                        <h2>Upcoming Tasks</h2>
                         <p>Your upcoming academic tasks</p>
                     </div>
-                    <button id="addAssignmentBtn">
-                        + Add Assignment
+                    <button id="addTaskBtn">
+                        + Add Task
                     </button>
                 </div>
-                <div id="assignmentList" class="assignment-list">
+                
+                <div id="taskForm" class="task-form hidden">
+                    <input
+                        type="text"
+                        id="taskTitle"
+                        placeholder="Task Type"
+                    >
+                    <input
+                        type="text"
+                        id="taskCourse"
+                        placeholder="Course name"
+                    >
+                    <input
+                        type="date"
+                        id="taskDueDate"
+                    >
+                    <button id="saveTaskBtn">
+                        Save Task
+                    </button>
+                </div>
+                <div id="tasksList" class="tasks-list">
                     <div class="empty-message">
-                        No assignments yet.
+                        No tasks yet.
                     </div>
                 </div>
             </section>
