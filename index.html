@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Productivity Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+
+        <!--Side Bar-->
+        
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>GCU Faisalabad</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active">Dashboard</a>
+                <a href="#" class="nav-link">Courses</a>
+                <a href="#" class="nav-link">Assignments</a>
+                <a href="#" class="nav-link">Notes</a>
+                <a href="#" class="nav-link">Progress</a>
+            </nav>
+        </aside>
+
+        <!--Main Content-->
+        <main class="main-content">
+
+            <!--Top Bar-->
+            
+            <header class="topbar">
+                <div>
+                    <h1>Student Dashboard</h1>
+                    <p>Manage your academic activities</p>
+                </div>
+                <button id="themeBtn">
+                    🌙
+                </button>
+            </header>
+
+            <!--Welcome Section-->
+
+            <section class="welcome">
+                <h2>Welcome back, Duryab 👋</h2>
+                <p>Keep track of your courses, assignments and progress.</p>
+            </section>
+
+            <!--Statistics Section-->
+
+            <section class="stats">
+
+                <div class="stat-card">
+                    <h3>Total Courses</h3>
+                    <p id="courseCount">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Assignments</h3>
+                    <p id="assignmentCount">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Completed</h3>
+                    <p id="completedCount">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending</h3>
+                    <p id="pendingCount">0</p>
+                </div>
+            </section>
+
+            <!--Assignment Section-->
+
+            <section class="assignment-section">
+                <div class="section-header">
+                    <div>
+                        <h2>Upcoming Assignments</h2>
+                        <p>Your upcoming academic tasks</p>
+                    </div>
+                    <button id="addAssignmentBtn">
+                        + Add Assignment
+                    </button>
+                </div>
+                <div id="assignmentList" class="assignment-list">
+                    <div class="empty-message">
+                        No assignments yet.
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
