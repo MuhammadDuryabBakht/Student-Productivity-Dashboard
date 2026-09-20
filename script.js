@@ -3,8 +3,9 @@ const taskTitle =document.getElementById("taskTitle");
 const taskCourse =document.getElementById("taskCourse");
 const taskDueDate =document.getElementById("taskDueDate");
 const saveTaskBtn =document.getElementById("saveTaskBtn");
+const tasksList=document.getElementById("tasksList");
 
-const tasks=[
+let tasks=[
     
 ]
 
@@ -19,12 +20,22 @@ function renderTasks() {
                 <p>${task.course}</p>
                 <p>Due: ${task.dueDate}</p>
             </div>
-            <div>
+            <div class="taskActions">
+                <button class="complete-btn">
+                    ${task.completed ? "Undo" : "Complete"}
+                </button>
                 <button class="delete-btn">
                     Delete
                 </button>
             </div>
         `;
+        const deleteBtn = taskCard.querySelector(".delete-btn");
+        const completeBtn = taskCard.querySelector(".complete-btn");
+        deleteBtn.addEventListener("click", function () {
+            tasks = tasks.filter(t => t.id !== task.id); // remove only this task
+            renderTasks(); // re-render the updated list
+        });
+
         tasksList.appendChild(taskCard);
     });
 }
@@ -40,10 +51,11 @@ addTaskBtn.addEventListener("click", function () {
 });
 saveTaskBtn.addEventListener("click", function () {
     const newTask = {
-    title: taskTitle.value,
-    course: taskCourse.value,
-    dueDate: taskDueDate.value,
-    completed: false
+        id: Date.now(),
+        title: taskTitle.value,
+        course: taskCourse.value,
+        dueDate: taskDueDate.value,
+        completed: false
 };
 if(taskTitle.value==="" && taskCourse.value===""){
     alert("Please fill the requirments completely");
@@ -55,8 +67,9 @@ else if(taskTitle.value===""){
     alert("Please fill the requirments completely");
 }
 else{
-    tasks.push(newTask);
+    tasks.unshift(newTask);
     renderTasks();
     resetTaskForm();
 }
 });
+
