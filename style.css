@@ -298,13 +298,22 @@ body{
 .complete-btn:hover{
     background-color: #16a34a;
 }
-.taskCard h3 {
+.task-card h3 {
     margin-bottom: 6px;
 }
-.taskCard p {
+.task-card p {
     color: #6b7280;
     margin-bottom: 3px;
 }
+
+.task-card.completed {
+    opacity: 0.65;
+}
+
+.task-card.completed h3 {
+    text-decoration: line-through;
+}
+
 /* 
 .taskActions {
     display: flex;
