@@ -56,7 +56,7 @@
                 </div>
                 <div class="stat-card">
                     <h3>Total Tasks</h3>
-                    <p id="assignmentCount">0</p>
+                    <p id="taskCount">0</p>
                 </div>
                 <div class="stat-card">
                     <h3>Completed</h3>
@@ -76,6 +76,11 @@
                         <h2>Upcoming Tasks</h2>
                         <p>Your upcoming academic tasks</p>
                     </div>
+                    <input
+                        type="text"
+                        id="searchTasks"
+                        placeholder="Search assignments..."
+                    >
                     <button id="addTaskBtn">
                         + Add Task
                     </button>
@@ -98,6 +103,9 @@
                     >
                     <button id="saveTaskBtn">
                         Save Task
+                    </button>
+                    <button id="cancelTaskForm">
+                        Cancel
                     </button>
                 </div>
                 <div id="tasksList" class="tasks-list">

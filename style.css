@@ -242,6 +242,9 @@ body{
     border-radius: 8px;
     outline: none;
 }
+.task-form input:focus{
+    border: 1.5px solid black;
+}
 .task-form button {
     border: none;
     padding: 12px 18px;
@@ -253,6 +256,19 @@ body{
 }
 .task-form button:hover{
     background-color: #1d4ed8;
+}
+#cancelTaskForm{
+    background-color: #e5e7eb; 
+    color: #374151;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.3s ease;
+}
+#cancelTaskForm:hover{
+     background-color: #d1d5db;
 }
 .hidden {
     display: none;
@@ -281,7 +297,10 @@ body{
 .delete-btn:hover {
   background-color: #dc2626; /* darker red on hover */
 }
-.taskActions button{
+/* .taskActions{
+    display: block;
+} */
+#comp-btn{
     display: block;
 }
 .complete-btn{
@@ -313,26 +332,33 @@ body{
 .task-card.completed h3 {
     text-decoration: line-through;
 }
-
-/* 
-.taskActions {
-    display: flex;
-    gap: 8px;
-}
-.complete-btn {
+.edit-btn {
     border: none;
     padding: 8px 12px;
     border-radius: 6px;
     cursor: pointer;
-    background-color: #16a34a;
+    background-color: #f59e0b;
     color: white;
 }
-.complete-btn:hover {
-    background-color: #15803d;
+.edit-btn:hover {
+    background-color: #d97706;
 }
-.task-card.completed {
-    opacity: 0.65;
+#searchTasks{
+    width: 250px;
+    padding: 0.6rem 1rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 0.75rem;
+    background-color: #f9f9f9;
+    font-size: 0.95rem;
+    color: #333;
+    transition: all 0.3s ease;
 }
-.task-card.completed h3 {
-    text-decoration: line-through;
-} */
+#searchTasks::placeholder{
+    color: #999;
+}
+#searchTasks:focus{
+     border-color: #3b82f6; /* soft blue accent */
+    background-color: #fff;
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+    outline: none;
+}
