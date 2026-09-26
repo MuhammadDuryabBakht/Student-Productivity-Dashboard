@@ -76,11 +76,18 @@
                         <h2>Upcoming Tasks</h2>
                         <p>Your upcoming academic tasks</p>
                     </div>
-                    <input
+                    <div class="selection">
+                        <select id="statusFilter">
+                            <option value="all">All</option>
+                            <option value="pending">Pending</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <input
                         type="text"
                         id="searchTasks"
                         placeholder="Search assignments..."
-                    >
+                        >
+                    </div>
                     <button id="addTaskBtn">
                         + Add Task
                     </button>

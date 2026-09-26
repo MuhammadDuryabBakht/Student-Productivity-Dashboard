@@ -1,15 +1,16 @@
 let editingTaskId = null;
 const addTaskBtn = document.getElementById("addTaskBtn");
-const taskTitle =document.getElementById("taskTitle");
-const taskCourse =document.getElementById("taskCourse");
-const taskDueDate =document.getElementById("taskDueDate");
-const saveTaskBtn =document.getElementById("saveTaskBtn");
-const tasksList=document.getElementById("tasksList");
-const taskCount =document.getElementById("taskCount");
-const completedCount =document.getElementById("completedCount");
-const pendingCount =document.getElementById("pendingCount");
-const cancelTaskForm=document.querySelector("#cancelTaskForm");
-const searchTasks=document.querySelector("#searchTasks");
+const taskTitle = document.getElementById("taskTitle");
+const taskCourse = document.getElementById("taskCourse");
+const taskDueDate = document.getElementById("taskDueDate");
+const saveTaskBtn = document.getElementById("saveTaskBtn");
+const tasksList= document.getElementById("tasksList");
+const taskCount = document.getElementById("taskCount");
+const completedCount = document.getElementById("completedCount");
+const pendingCount = document.getElementById("pendingCount");
+const cancelTaskForm= document.querySelector("#cancelTaskForm");
+const searchTasks= document.querySelector("#searchTasks");
+const statusFilter = document.getElementById("statusFilter");
 
 let tasks=JSON.parse(localStorage.getItem("tasks")) || [];
 
@@ -44,8 +45,15 @@ function renderTasks() {
     tasksList.innerHTML = "";
 
     const searchText = searchTasks.value.toLowerCase();
+    const selectedStatus = statusFilter.value;
     const filteredTasks = tasks.filter(function (task) {
-        return task.title.toLowerCase().includes(searchText);
+        const matchesSearch=task.title.toLowerCase().includes(searchText);
+        const matchesStatus =
+        selectedStatus === "all" ||
+        (selectedStatus === "completed" && task.completed) ||
+        (selectedStatus === "pending" && !task.completed);
+        
+        return matchesSearch && matchesStatus;
     })
     searchTasks.addEventListener("input", function () {
         renderTasks();
@@ -128,19 +136,6 @@ saveTaskBtn.addEventListener("click", function () {
             dueDate: taskDueDate.value,
             completed: false
         };
-        // if(taskTitle.value==="" && taskCourse.value===""){
-        //     alert("Please fill the requirments completely");
-        // }
-        // else if(taskCourse.value===""){
-        //     alert("Please fill the requirments completely");
-        // }
-        // else if(taskTitle.value===""){
-        //     alert("Please fill the requirments completely");
-        // }
-        // else{
-        //     resetTaskForm();
-        //     tasks.unshift(newTask);
-        // }
         if(taskTitle.value.trim()==="" || taskCourse.value===""){
             alert("Please fill the required data...");
         }
@@ -164,4 +159,7 @@ saveTaskBtn.addEventListener("click", function () {
 cancelTaskForm.addEventListener("click",function(){
     resetTaskForm();
 })
+statusFilter.addEventListener("change", function () {
+    renderTasks();
+});
 renderTasks();
