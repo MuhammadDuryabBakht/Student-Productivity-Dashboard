@@ -12,7 +12,12 @@ body{
     display: flex;
     min-height: 100vh;
 }
-
+.upcoming-section{
+    margin-bottom: 20px;
+}
+.courses-section{
+    margin-bottom: 20px;
+}
 /* =========================
    Sidebar
 ========================= */
@@ -133,7 +138,7 @@ body{
 }
 
 /* =========================
-   Assignments
+   Tasks
 ========================= */
 
 .tasks-section {
@@ -223,7 +228,6 @@ body{
         align-items: flex-start;
         gap: 15px;
     }
-
 }
 
 /* =========================
@@ -241,6 +245,15 @@ body{
     border: 1px solid #d1d5db;
     border-radius: 8px;
     outline: none;
+}
+#taskCourse {
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+}
+#taskCourse:focus{
+    border: 1.5px solid black;
 }
 .task-form input:focus{
     border: 1.5px solid black;
@@ -270,10 +283,6 @@ body{
 #cancelTaskForm:hover{
      background-color: #d1d5db;
 }
-.hidden {
-    display: none;
-}
-
 .task-card {
     display: flex;
     justify-content: space-between;
@@ -297,9 +306,6 @@ body{
 .delete-btn:hover {
   background-color: #dc2626; /* darker red on hover */
 }
-/* .taskActions{
-    display: block;
-} */
 #comp-btn{
     display: block;
 }
@@ -381,4 +387,134 @@ body{
     border-color: #3b82f6;
     box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
     outline: none;
+}
+
+
+
+/* =========================
+   Courses
+========================= */
+
+
+.courses-section {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+/* =========================
+   Course Adding form
+========================= */
+
+#addCourseBtn {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #2563eb;
+    color: white;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+#addCourseBtn:hover {
+    background-color: #1d4ed8;
+}
+.course-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.course-form input {
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+}
+.course-form input:focus{
+    border: 1.5px solid black;
+}
+.course-form button {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #2563eb;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+.course-form button:hover{
+    background-color: #1d4ed8;
+}
+#cancelCourseForm{
+    background-color: #e5e7eb; 
+    color: #374151;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.3s ease;
+}
+#cancelCourseForm:hover{
+     background-color: #d1d5db;
+}
+.course-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background-color: #f9fafb;
+}
+.delete-course-btn{
+  background-color: #ef4444; /* soft red */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.3s ease;
+}
+
+.delete-course-btn:hover {
+  background-color: #dc2626; /* darker red on hover */
+}
+.course-card h3 {
+    margin-bottom: 6px;
+}
+
+
+/* =========================
+   Upcoimg Section
+========================= */
+
+
+.upcoming-section {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+}
+marquee {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1e293b; /* dark slate for readability */
+    background: linear-gradient(to right, #f8fafc, #e2e8f0);
+    border-radius: 6px;
+    padding: 8px 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+@keyframes glow {
+    from { text-shadow: 0 0 5px #94a3b8; }
+    to { text-shadow: 0 0 10px #64748b; }
+}
+
+
+ .hidden {
+    display: none;
 }

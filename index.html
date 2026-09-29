@@ -68,6 +68,50 @@
                 </div>
             </section>
 
+
+            <!--Upcoming Section-->
+
+            <section class="upcoming-section">
+                <div class="section-header">
+                    <!-- <h2>Upcoming Deadlines</h2> -->
+                     <marquee scrollamount="8">Upcoming Deadlines</marquee>
+                </div>
+                <div id="upcomingList" class="upcoming-list">
+                    <div class="empty-message">
+                        No upcoming deadlines.
+                    </div>
+                </div>
+            </section>
+
+            <!--Courses Section-->
+
+            <section class="courses-section">
+                <div class="section-header">
+                    <h2>Courses</h2>
+                    <button id="addCourseBtn">
+                        + Add Course
+                    </button>
+                </div>
+                <div id="courseForm" class="course-form hidden">
+                    <input
+                        type="text"
+                        id="courseName"
+                        placeholder="Enter course name"
+                    >
+                    <button id="saveCourseBtn">
+                        Save Course
+                    </button>
+                    <button id="cancelCourseForm">
+                        Cancel
+                    </button>
+                </div>
+                <div id="courseList" class="course-list">
+                    <div class="empty-message">
+                        No courses yet.
+                    </div>
+                </div>
+            </section>
+
             <!--Tasks Section-->
 
             <section class="tasks-section">
@@ -85,8 +129,13 @@
                         <input
                         type="text"
                         id="searchTasks"
-                        placeholder="Search assignments..."
+                        placeholder="Search Tasks..."
                         >
+                        <select id="sortTasks">
+                            <option value="default">Default</option>
+                            <option value="nearest">Nearest Due Date</option>
+                            <option value="farthest">Farthest Due Date</option>
+                        </select>
                     </div>
                     <button id="addTaskBtn">
                         + Add Task
@@ -99,11 +148,14 @@
                         id="taskTitle"
                         placeholder="Task Type"
                     >
-                    <input
+                    <!-- <input
                         type="text"
                         id="taskCourse"
                         placeholder="Course name"
-                    >
+                    > -->
+                    <select id="taskCourse">
+                        <option value="">Select Course</option>
+                    </select>
                     <input
                         type="date"
                         id="taskDueDate"

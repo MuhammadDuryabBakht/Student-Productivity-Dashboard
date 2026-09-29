@@ -1,3 +1,5 @@
+// Task Section
+
 let editingTaskId = null;
 const addTaskBtn = document.getElementById("addTaskBtn");
 const taskTitle = document.getElementById("taskTitle");
@@ -5,14 +7,33 @@ const taskCourse = document.getElementById("taskCourse");
 const taskDueDate = document.getElementById("taskDueDate");
 const saveTaskBtn = document.getElementById("saveTaskBtn");
 const tasksList= document.getElementById("tasksList");
+const taskForm=document.getElementById("taskForm");
 const taskCount = document.getElementById("taskCount");
 const completedCount = document.getElementById("completedCount");
 const pendingCount = document.getElementById("pendingCount");
 const cancelTaskForm= document.querySelector("#cancelTaskForm");
 const searchTasks= document.querySelector("#searchTasks");
 const statusFilter = document.getElementById("statusFilter");
+const sortTasks = document.getElementById("sortTasks");
+
+// Course Section
+
+const addCourseBtn =document.getElementById("addCourseBtn");
+const courseForm = document.getElementById("courseForm");
+const courseName = document.getElementById("courseName");
+const saveCourseBtn = document.getElementById("saveCourseBtn");
+const courseList = document.getElementById("courseList");
+const cancelCourseForm = document.getElementById("cancelCourseForm");
+const courseCount=document.getElementById("courseCount");
+
+// Upcoming Section
+
+const upcomingList = document.getElementById("upcomingList");
+
+// Saving Section
 
 let tasks=JSON.parse(localStorage.getItem("tasks")) || [];
+let courses = JSON.parse(localStorage.getItem("courses")) || [];
 
 function saveTasks(){
     localStorage.setItem(
@@ -20,9 +41,17 @@ function saveTasks(){
         JSON.stringify(tasks)
     );
 }
+function saveCourses() {
+    localStorage.setItem(
+        "courses",
+        JSON.stringify(courses)
+    );
+}
+
 
 function updateStatistics() {
     const total = tasks.length;
+    const totalCourse=courses.length;
     const completed =tasks.filter(function (task) {
             return task.completed;
         }).length;
@@ -30,7 +59,13 @@ function updateStatistics() {
     taskCount.textContent = total;
     completedCount.textContent = completed;
     pendingCount.textContent = pending;
+    courseCount.textContent=totalCourse;
 }
+
+
+//           Tasks Section
+
+
 
 function renderTasks() {
     if (tasks.length === 0) {
@@ -54,7 +89,17 @@ function renderTasks() {
         (selectedStatus === "pending" && !task.completed);
         
         return matchesSearch && matchesStatus;
-    })
+    });
+    if (sortTasks.value === "nearest") {
+        filteredTasks.sort(function (a, b) {
+            return new Date(a.dueDate) - new Date(b.dueDate);
+        });
+    }
+    if (sortTasks.value === "farthest") {
+        filteredTasks.sort(function (a, b) {
+            return new Date(b.dueDate) - new Date(a.dueDate);
+        });
+    }
     searchTasks.addEventListener("input", function () {
         renderTasks();
     });
@@ -98,11 +143,13 @@ function renderTasks() {
         deleteTaskBtn.addEventListener("click", function () {
             tasks = tasks.filter(t => t.id !== task.id); // remove only this task
             saveTasks();
+            renderUpcomingTasks();
             renderTasks(); // re-render the updated list
         });
         completeTaskBtn.addEventListener("click", function () {
             task.completed = !task.completed;
             saveTasks();
+            renderUpcomingTasks();
             renderTasks();
         });
         editTaskBtn.addEventListener("click", function () {
@@ -136,7 +183,7 @@ saveTaskBtn.addEventListener("click", function () {
             dueDate: taskDueDate.value,
             completed: false
         };
-        if(taskTitle.value.trim()==="" || taskCourse.value===""){
+        if(taskTitle.value.trim()==="" || taskCourse.value==="" || taskDueDate.value===""){
             alert("Please fill the required data...");
         }
         else{
@@ -152,9 +199,10 @@ saveTaskBtn.addEventListener("click", function () {
         eidtTask.dueDate = taskDueDate.value;
         resetTaskForm();
         }
-        saveTasks();
-        renderTasks();
-        editingTaskId = null;
+    saveTasks();
+    renderUpcomingTasks();
+    renderTasks();
+    editingTaskId = null;
 });
 cancelTaskForm.addEventListener("click",function(){
     resetTaskForm();
@@ -162,4 +210,137 @@ cancelTaskForm.addEventListener("click",function(){
 statusFilter.addEventListener("change", function () {
     renderTasks();
 });
+sortTasks.addEventListener("change", function () {
+    renderTasks();
+});
+
+
+
+//           Courses Section
+
+
+
+ function resetCourseForm(){
+    courseName.value = "";
+    courseForm.classList.add("hidden");
+ }
+addCourseBtn.addEventListener("click", function () {
+    courseForm.classList.remove("hidden");
+});
+
+saveCourseBtn.addEventListener("click", function () {
+    if (courseName.value.trim() === "") {
+        alert("Please enter a course name.");
+        return;
+    }
+    const newCourse = {
+        id: Date.now(),
+        name: courseName.value.trim()
+    };
+    courses.push(newCourse);
+    saveCourses();
+    updateStatistics();
+    renderCourseOptions();
+    renderCourse();
+    resetCourseForm();
+});
+cancelCourseForm.addEventListener("click",function(){
+    resetCourseForm();
+})
+function renderCourse() {
+    courseList.innerHTML = "";
+    if (courses.length === 0) {
+        courseList.innerHTML = `
+        <div class="empty-message">
+            No courses yet.
+        </div>
+    `;
+        return;
+    }
+    courses.forEach(function (course) {
+        const courseCard = document.createElement("div");
+        courseCard.classList.add("course-card");
+        courseCard.innerHTML = `
+            <div>
+                <h3>${course.name}</h3>
+            </div>
+            <button class="delete-course-btn">
+                Delete
+            </button>
+        `;
+        const deleteCourseBtn = courseCard.querySelector(".delete-course-btn");
+        deleteCourseBtn.addEventListener("click", function(){
+            courses = courses.filter(function (item) {
+                return item.id !== course.id;
+            });
+            saveCourses();
+            updateStatistics();
+            renderCourseOptions();
+            renderCourse();
+        });
+        courseList.appendChild(courseCard);
+    });
+}
+function renderCourseOptions() {
+    taskCourse.innerHTML = `
+        <option value="">Select Course</option>
+    `;
+    courses.forEach(function (course) {
+        const option = document.createElement("option");
+        option.value = course.name;
+        option.textContent = course.name;
+        taskCourse.appendChild(option);
+    });
+}
+
+
+
+//           Upcoming Section
+
+
+
+function renderUpcomingTasks() {
+    upcomingList.innerHTML = "";
+    const upcomingTasks = tasks
+        .filter(function (task) {
+            return !task.completed;
+        })
+        .slice()
+        .sort(function (a, b) {
+            return new Date(a.dueDate) - new Date(b.dueDate);
+        })
+        .slice(0, 3);
+    if (upcomingTasks.length === 0) {
+        upcomingList.innerHTML = `
+            <div class="empty-message">
+                No upcoming deadlines.
+            </div>
+        `;
+        return;
+    }
+    upcomingTasks.forEach(function (task) {
+        const item = document.createElement("div");
+        item.classList.add("upcoming-item");
+        const today = new Date();
+        const dueDate = new Date(task.dueDate);
+        let deadlineText;
+        if (dueDate < today) {
+            deadlineText = "OVERDUE";
+            item.classList.add("overdue");
+        } else {
+        deadlineText = task.dueDate;
+        }
+        item.innerHTML = `
+            <div>
+                <h3>${task.title}</h3>
+                <p>${task.course}</p>
+            </div>
+            <span>${task.dueDate}</span>
+        `;
+        upcomingList.appendChild(item);
+    });
+}
 renderTasks();
+renderCourse();
+renderCourseOptions();
+renderUpcomingTasks();
