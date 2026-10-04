@@ -69,6 +69,24 @@
             </section>
 
 
+            <!--Progress Section-->
+
+
+            <section class="progress-section">
+                <div class="section-header">
+                    <h2>Task Progress</h2>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-info">
+                        <span id="progressText">0% Complete</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progressFill"></div>
+                    </div>
+                </div>
+            </section>
+
+
             <!--Upcoming Section-->
 
             <section class="upcoming-section">
@@ -170,6 +188,42 @@
                 <div id="tasksList" class="tasks-list">
                     <div class="empty-message">
                         No tasks yet.
+                    </div>
+                </div>
+            </section>
+
+
+            <!--Notes Section-->
+
+
+            <section class="notes-section">
+                <div class="section-header">
+                    <h2>Notes</h2>
+                    <button id="addNoteBtn">
+                        + Add Note
+                    </button>
+                </div>
+                <div id="noteForm" class="note-form hidden">
+                    <input
+                        type="text"
+                        id="noteTitle"
+                        placeholder="Enter note title"
+                    >
+                    <textarea
+                        id="noteContent"
+                        placeholder="Write your note..."
+                    ></textarea>
+                    <button id="saveNoteBtn">
+                        Save Note
+                    </button>
+                    <button id="cancelNoteForm">
+                        Cancel
+                    </button>
+
+                </div>
+                <div id="noteList" class="note-list">
+                    <div class="empty-message">
+                        No notes yet.
                     </div>
                 </div>
             </section>

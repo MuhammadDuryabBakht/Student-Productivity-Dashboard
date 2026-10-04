@@ -18,6 +18,15 @@ body{
 .courses-section{
     margin-bottom: 20px;
 }
+.notes-section{
+    margin-bottom: 20px;
+}
+.progress-section{
+    margin-bottom: 20px;
+}
+.notes-section {
+    margin-top: 20px;
+}
 /* =========================
    Sidebar
 ========================= */
@@ -513,7 +522,204 @@ marquee {
     from { text-shadow: 0 0 5px #94a3b8; }
     to { text-shadow: 0 0 10px #64748b; }
 }
+.upcoming-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.upcoming-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+}
+.upcoming-item h3 {
+    margin-bottom: 5px;
+}
+.upcoming-item p {
+    margin: 0;
+    color: #777;
+}
+.upcoming-item span {
+    font-weight: 600;
+}
+.upcoming-item.overdue {
+    border-left: 5px solid #e74c3c;
+}
+.upcoming-item.overdue span {
+    color: #e74c3c;
+    font-weight: 700;
+}
+.upcoming-item.due-today {
+    border-left: 5px solid #f39c12;
+}
+.upcoming-item.due-today span {
+    color: #f39c12;
+    font-weight: 700;
+}
 
+
+/* =========================
+   Progress Section
+========================= */
+
+
+.progress-section {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+}
+.progress-container {
+    margin-top: 15px;
+}
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+#progressText {
+    font-weight: 600;
+}
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background-color: #e5e5e5;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#progressFill {
+    width: 0%;
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+
+/* =========================
+   Notes Section
+========================= */
+
+
+
+.note-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+}
+.note-form input,
+.note-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+}
+.note-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+.note-form button {
+    width: fit-content;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.note-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+.note-card {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 18px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+}
+.note-card h3 {
+    margin-bottom: 8px;
+}
+.note-card p {
+    color: #666;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+.delete-note-btn {
+    height: fit-content;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+#addNoteBtn{
+     border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #2563eb;
+    color: white;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+#addNoteBtn:hover {
+    background-color: #1d4ed8;
+}
+.delete-note-btn{
+  background-color: #ef4444; /* soft red */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.3s ease;
+}
+.delete-note-btn:hover {
+  background-color: #dc2626; /* darker red on hover */
+}
+#saveNoteBtn{
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #2563eb;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+#saveNoteBtn:hover{
+    background-color: #1d4ed8;
+}
+#cancelNoteForm{
+    background-color: #e5e7eb; 
+    color: #374151;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.3s ease;
+}
+#cancelNoteForm:hover{
+     background-color: #d1d5db;
+}
+@media (max-width: 600px) {
+    .note-list {
+        grid-template-columns: 1fr;
+    }
+}
 
  .hidden {
     display: none;

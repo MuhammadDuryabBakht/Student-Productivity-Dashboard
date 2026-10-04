@@ -16,6 +16,11 @@ const searchTasks= document.querySelector("#searchTasks");
 const statusFilter = document.getElementById("statusFilter");
 const sortTasks = document.getElementById("sortTasks");
 
+// Progress Section
+
+const progressText = document.getElementById("progressText");
+const progressFill = document.getElementById("progressFill");
+
 // Course Section
 
 const addCourseBtn =document.getElementById("addCourseBtn");
@@ -30,10 +35,22 @@ const courseCount=document.getElementById("courseCount");
 
 const upcomingList = document.getElementById("upcomingList");
 
+
+// Notes Section
+
+const addNoteBtn = document.getElementById("addNoteBtn");
+const noteForm = document.getElementById("noteForm");
+const noteTitle = document.getElementById("noteTitle");
+const noteContent = document.getElementById("noteContent");
+const saveNoteBtn = document.getElementById("saveNoteBtn");
+const noteList = document.getElementById("noteList");
+const cancelNoteForm = document.getElementById("cancelNoteForm");
+
 // Saving Section
 
 let tasks=JSON.parse(localStorage.getItem("tasks")) || [];
 let courses = JSON.parse(localStorage.getItem("courses")) || [];
+let notes = JSON.parse(localStorage.getItem("notes")) || [];
 
 function saveTasks(){
     localStorage.setItem(
@@ -56,6 +73,12 @@ function updateStatistics() {
             return task.completed;
         }).length;
     const pending = total - completed;
+    let progress = 0;
+    if (total > 0) {
+        progress = Math.round((completed / total) * 100);
+    }
+    progressText.textContent = `${progress}% Complete`;
+    progressFill.style.width = `${progress}%`;
     taskCount.textContent = total;
     completedCount.textContent = completed;
     pendingCount.textContent = pending;
@@ -323,24 +346,131 @@ function renderUpcomingTasks() {
         item.classList.add("upcoming-item");
         const today = new Date();
         const dueDate = new Date(task.dueDate);
+        today.setHours(0, 0, 0, 0);
+        dueDate.setHours(0, 0, 0, 0);
+        const difference = dueDate.getTime() - today.getTime();
+        const daysLeft = difference / (1000 * 60 * 60 * 24);
         let deadlineText;
-        if (dueDate < today) {
+        if (daysLeft < 0) {
             deadlineText = "OVERDUE";
             item.classList.add("overdue");
-        } else {
-        deadlineText = task.dueDate;
+        } 
+        else if (daysLeft === 0) {
+            deadlineText = "Due Today";
+            item.classList.add("due-today");
+        } 
+        else if (daysLeft === 1) {
+            deadlineText = "Tomorrow";
+        } 
+        else {
+            deadlineText = `${daysLeft} days left`;
         }
         item.innerHTML = `
             <div>
                 <h3>${task.title}</h3>
                 <p>${task.course}</p>
             </div>
-            <span>${task.dueDate}</span>
+            <span>${deadlineText}</span>
         `;
         upcomingList.appendChild(item);
     });
 }
+
+
+
+//           Notes Section
+
+
+function saveNotes() {
+    localStorage.setItem(
+        "notes",
+        JSON.stringify(notes)
+    );
+}
+function renderNotes() {
+    noteList.innerHTML = "";
+    if (notes.length === 0) {
+        noteList.innerHTML = `
+            <div class="empty-message">
+                No notes yet.
+            </div>
+        `;
+        return;
+    }
+    notes.forEach(function (note) {
+        const noteCard = document.createElement("div");
+        noteCard.classList.add("note-card");
+        noteCard.innerHTML = `
+            <div>
+                <h3>${note.title}</h3>
+                <p>${note.content}</p>
+            </div>
+            <div class="note-actions">
+                <button class="edit-note-btn">
+                    Edit
+                </button>
+                <button class="delete-note-btn">
+                    Delete
+                </button>
+            </div>
+        `;
+        const deleteNoteBtn = noteCard.querySelector(".delete-note-btn");
+        deleteNoteBtn.addEventListener("click", function () {
+            notes = notes.filter(function (item) {
+                return item.id !== note.id;
+            });
+        const editNoteBtn = noteCard.querySelector(".edit-note-btn");
+        editNoteBtn.addEventListener("click", function () {
+            noteTitle.value = note.title;
+            noteContent.value = note.content;
+            noteForm.classList.remove("hidden");
+            notes = notes.filter(function (item) {
+                return item.id !== note.id;
+            });
+        saveNotes();
+        renderNotes();
+        });
+            saveNotes();
+            renderNotes();
+        });
+        noteList.appendChild(noteCard);
+    });
+}
+function resetNoteForm(){
+    noteTitle.value = "";
+    noteContent.value = "";
+    noteForm.classList.add("hidden");
+ }
+addNoteBtn.addEventListener("click", function () {
+    noteForm.classList.remove("hidden");
+});
+saveNoteBtn.addEventListener("click", function () {
+    if (
+        noteTitle.value.trim() === "" ||
+        noteContent.value.trim() === ""
+    ) {
+        alert("Please fill in all fields.");
+        return;
+    }
+    const newNote = {
+        id: Date.now(),
+        title: noteTitle.value.trim(),
+        content: noteContent.value.trim()
+    };
+    notes.push(newNote);
+    resetNoteForm()
+    saveNotes();
+    renderNotes();
+});
+cancelNoteForm.addEventListener("click", function(){
+    resetNoteForm();
+});
+
+
+
+
 renderTasks();
 renderCourse();
 renderCourseOptions();
 renderUpcomingTasks();
+renderNotes();
