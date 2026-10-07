@@ -715,10 +715,41 @@ marquee {
 #cancelNoteForm:hover{
      background-color: #d1d5db;
 }
+.edit-note-btn{
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #f59e0b;
+    color: white;
+}
+.edit-note-btn:hover {
+    background-color: #d97706;
+}
+
 @media (max-width: 600px) {
     .note-list {
         grid-template-columns: 1fr;
     }
+}
+#searchNotes{
+    width: 250px;
+    padding: 0.6rem 1rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 0.75rem;
+    background-color: #f9f9f9;
+    font-size: 0.95rem;
+    color: #333;
+    transition: all 0.3s ease;
+}
+#searchNotes::placeholder{
+    color: #999;
+}
+#searchNotes:focus{
+     border-color: #3b82f6; /* soft blue accent */
+    background-color: #fff;
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+    outline: none;
 }
 
  .hidden {

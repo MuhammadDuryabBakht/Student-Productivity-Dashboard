@@ -38,6 +38,7 @@ const upcomingList = document.getElementById("upcomingList");
 
 // Notes Section
 
+let editingNoteId = null;
 const addNoteBtn = document.getElementById("addNoteBtn");
 const noteForm = document.getElementById("noteForm");
 const noteTitle = document.getElementById("noteTitle");
@@ -45,6 +46,7 @@ const noteContent = document.getElementById("noteContent");
 const saveNoteBtn = document.getElementById("saveNoteBtn");
 const noteList = document.getElementById("noteList");
 const cancelNoteForm = document.getElementById("cancelNoteForm");
+const searchNotes = document.getElementById("searchNotes");
 
 // Saving Section
 
@@ -64,7 +66,15 @@ function saveCourses() {
         JSON.stringify(courses)
     );
 }
+function saveNotes() {
+    localStorage.setItem(
+        "notes",
+        JSON.stringify(notes)
+    );
+};
 
+
+//  Statistics Updation
 
 function updateStatistics() {
     const total = tasks.length;
@@ -381,15 +391,21 @@ function renderUpcomingTasks() {
 //           Notes Section
 
 
-function saveNotes() {
-    localStorage.setItem(
-        "notes",
-        JSON.stringify(notes)
-    );
-}
+function resetNoteForm(){
+    noteTitle.value="";
+    noteContent.value="";
+    noteForm.classList.add("hidden");
+};
 function renderNotes() {
     noteList.innerHTML = "";
-    if (notes.length === 0) {
+    const searchText = searchNotes.value.toLowerCase();
+    const filteredNotes = notes.filter(function (note) {
+        return (
+            note.title.toLowerCase().includes(searchText) ||
+            note.content.toLowerCase().includes(searchText)
+        );
+    });
+    if (filteredNotes.length === 0) {
         noteList.innerHTML = `
             <div class="empty-message">
                 No notes yet.
@@ -397,7 +413,7 @@ function renderNotes() {
         `;
         return;
     }
-    notes.forEach(function (note) {
+    filteredNotes.forEach(function (note) {
         const noteCard = document.createElement("div");
         noteCard.classList.add("note-card");
         noteCard.innerHTML = `
@@ -415,57 +431,54 @@ function renderNotes() {
             </div>
         `;
         const deleteNoteBtn = noteCard.querySelector(".delete-note-btn");
-        deleteNoteBtn.addEventListener("click", function () {
-            notes = notes.filter(function (item) {
-                return item.id !== note.id;
-            });
         const editNoteBtn = noteCard.querySelector(".edit-note-btn");
         editNoteBtn.addEventListener("click", function () {
             noteTitle.value = note.title;
             noteContent.value = note.content;
+            editingNoteId = note.id;
             noteForm.classList.remove("hidden");
+        });
+        deleteNoteBtn.addEventListener("click", function () {
             notes = notes.filter(function (item) {
                 return item.id !== note.id;
             });
-        saveNotes();
-        renderNotes();
-        });
             saveNotes();
             renderNotes();
         });
         noteList.appendChild(noteCard);
     });
 }
-function resetNoteForm(){
-    noteTitle.value = "";
-    noteContent.value = "";
-    noteForm.classList.add("hidden");
- }
-addNoteBtn.addEventListener("click", function () {
+
+addNoteBtn.addEventListener("click",()=>{
     noteForm.classList.remove("hidden");
 });
-saveNoteBtn.addEventListener("click", function () {
-    if (
-        noteTitle.value.trim() === "" ||
-        noteContent.value.trim() === ""
-    ) {
-        alert("Please fill in all fields.");
-        return;
+saveNoteBtn.addEventListener("click",()=>{
+    if (editingNoteId === null) {
+        const newNote = {
+            id: Date.now(),
+            title: noteTitle.value.trim(),
+            content: noteContent.value.trim()
+        };
+        notes.push(newNote);
+    } 
+    else {
+        const editNote = notes.find(function (item) {
+            return item.id === editingNoteId;
+        });
+        editNote.title = noteTitle.value.trim();
+        editNote.content = noteContent.value.trim();
     }
-    const newNote = {
-        id: Date.now(),
-        title: noteTitle.value.trim(),
-        content: noteContent.value.trim()
-    };
-    notes.push(newNote);
-    resetNoteForm()
     saveNotes();
     renderNotes();
-});
-cancelNoteForm.addEventListener("click", function(){
+    editingNoteId = null;
     resetNoteForm();
 });
-
+cancelNoteForm.addEventListener("click",()=>{
+    resetNoteForm();
+})
+searchNotes.addEventListener("input", function () {
+    renderNotes();
+});
 
 
 
