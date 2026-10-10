@@ -1,3 +1,28 @@
+
+// Toggle Theme Section
+
+const themeToggle = document.getElementById("themeBtn");
+
+themeToggle.addEventListener("click", function () {
+    document.body.classList.toggle("dark-mode");
+    const isDarkMode = document.body.classList.contains("dark-mode");
+    if (isDarkMode) {
+        themeToggle.textContent = "☀️";
+        localStorage.setItem("theme", "dark");
+    } else {
+        themeToggle.textContent = "🌙";
+        localStorage.setItem("theme", "light");
+    }
+});
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggle.textContent = "☀️";
+} else {
+    document.body.classList.remove("dark-mode");
+    themeToggle.textContent = "🌙";
+}
+
 // Task Section
 
 let editingTaskId = null;
@@ -47,6 +72,7 @@ const saveNoteBtn = document.getElementById("saveNoteBtn");
 const noteList = document.getElementById("noteList");
 const cancelNoteForm = document.getElementById("cancelNoteForm");
 const searchNotes = document.getElementById("searchNotes");
+const sortNotes = document.getElementById("sortNotes");
 
 // Saving Section
 
@@ -413,6 +439,18 @@ function renderNotes() {
         `;
         return;
     }
+
+    if (sortNotes.value === "newest") {
+        filteredNotes.sort(function (a, b) {
+            return b.id - a.id;
+        });
+    }
+    if (sortNotes.value === "oldest") {
+        filteredNotes.sort(function (a, b) {
+            return a.id - b.id;
+        });
+    }
+
     filteredNotes.forEach(function (note) {
         const noteCard = document.createElement("div");
         noteCard.classList.add("note-card");
@@ -459,7 +497,7 @@ saveNoteBtn.addEventListener("click",()=>{
             title: noteTitle.value.trim(),
             content: noteContent.value.trim()
         };
-        notes.push(newNote);
+        notes.unshift(newNote);
     } 
     else {
         const editNote = notes.find(function (item) {
@@ -479,6 +517,10 @@ cancelNoteForm.addEventListener("click",()=>{
 searchNotes.addEventListener("input", function () {
     renderNotes();
 });
+sortNotes.addEventListener("change", function () {
+    renderNotes();
+});
+
 
 
 

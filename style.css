@@ -27,9 +27,20 @@ body{
 .notes-section {
     margin-top: 20px;
 }
+
+
+
+/* =========================
+   Dark Mode
+========================= */
+
+
+
+
 /* =========================
    Sidebar
 ========================= */
+
 
 .sidebar{
     width: 240px;
@@ -372,7 +383,7 @@ body{
     color: #999;
 }
 #searchTasks:focus{
-     border-color: #3b82f6; /* soft blue accent */
+    border-color: #3b82f6; /* soft blue accent */
     background-color: #fff;
     box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
     outline: none;
@@ -509,7 +520,7 @@ body{
 marquee {
     font-size: 20px;
     font-weight: 600;
-    color: #1e293b; /* dark slate for readability */
+    color: #1e293b; 
     background: linear-gradient(to right, #f8fafc, #e2e8f0);
     border-radius: 6px;
     padding: 8px 12px;
@@ -604,7 +615,11 @@ marquee {
    Notes Section
 ========================= */
 
-
+.notes-section {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+}
 
 .note-form {
     display: flex;
@@ -649,6 +664,9 @@ marquee {
     border: 1px solid #ddd;
     border-radius: 12px;
 }
+.note-actions{
+    flex-shrink: 0;
+}
 .note-card h3 {
     margin-bottom: 8px;
 }
@@ -665,7 +683,7 @@ marquee {
     cursor: pointer;
 }
 #addNoteBtn{
-     border: none;
+    border: none;
     padding: 12px 18px;
     border-radius: 8px;
     cursor: pointer;
@@ -751,7 +769,239 @@ marquee {
     box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
     outline: none;
 }
+#sortNotes{
+    padding: 0.6rem 1rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 0.75rem;
+    background-color: #f9f9f9;
+    font-size: 0.95rem;
+    color: #333;
+    transition: all 0.3s ease;
+    outline: none;
+}
+#sortNotes:hover{
+    border-color: #3b82f6;
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+    outline: none;
+}
+
+
+
 
  .hidden {
     display: none;
+}
+
+
+
+
+/* ==========================================
+   DARK MODE - STUDENT PRODUCTIVITY DASHBOARD
+========================================== */
+
+body.dark-mode {
+    background-color: #0b1120;
+    color: #e6edf7;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Main dashboard sections */
+body.dark-mode .welcome,
+body.dark-mode .stat-card,
+body.dark-mode .tasks-section,
+body.dark-mode .courses-section,
+body.dark-mode .upcoming-section,
+body.dark-mode .progress-section,
+body.dark-mode .notes-section {
+    background-color: #151f30;
+    color: #e6edf7;
+    border: 1px solid #304057;
+}
+
+/* Sidebar remains dark in both modes */
+body.dark-mode .sidebar {
+    background-color: #080e19;
+}
+
+/* Top bar and welcome text */
+body.dark-mode .topbar p,
+body.dark-mode .welcome p,
+body.dark-mode .stat-card h3,
+body.dark-mode .section-header p {
+    color: #9aabc2;
+}
+
+/* Theme toggle button */
+body.dark-mode #themeBtn {
+    background-color: #1d2a3d;
+    color: #e6edf7;
+    border: 1px solid #304057;
+}
+
+/* Task, course, upcoming and note cards */
+body.dark-mode .task-card,
+body.dark-mode .course-card,
+body.dark-mode .upcoming-item,
+body.dark-mode .note-card {
+    background-color: #1d2a3d;
+    color: #e6edf7;
+    border-color: #304057;
+}
+
+/* Secondary text inside cards */
+body.dark-mode .task-card p,
+body.dark-mode .upcoming-item p,
+body.dark-mode .note-card p {
+    color: #9aabc2;
+}
+
+/* Empty messages */
+body.dark-mode .empty-message {
+    color: #9aabc2;
+    border-color: #40516a;
+}
+
+/* Input fields, text areas and dropdowns */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background-color: #111b2b;
+    color: #e6edf7;
+    border: 1px solid #304057;
+    color-scheme: dark;
+}
+
+/* Placeholder text */
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #8798b0;
+    opacity: 1;
+}
+
+/* Focused input fields */
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+    outline: none;
+    border-color: #6d8cff;
+    box-shadow: 0 0 0 2px rgba(109, 140, 255, 0.15);
+}
+
+/* Search bars */
+body.dark-mode #searchTasks,
+body.dark-mode #searchNotes {
+    background-color: #111b2b;
+    color: #e6edf7;
+    border-color: #304057;
+}
+
+/* Sorting and filtering dropdowns */
+body.dark-mode .selection select,
+body.dark-mode #sortNotes,
+body.dark-mode #taskCourse {
+    background-color: #111b2b;
+    color: #e6edf7;
+    border-color: #304057;
+}
+
+/* Note form */
+body.dark-mode .note-form {
+    background-color: #1d2a3d;
+    color: #e6edf7;
+}
+
+/* Cancel buttons */
+body.dark-mode #cancelTaskForm,
+body.dark-mode #cancelCourseForm,
+body.dark-mode #cancelNoteForm {
+    background-color: #2b394d;
+    color: #e6edf7;
+    border: 1px solid #40516a;
+}
+body.dark-mode #cancelTaskForm:hover,
+body.dark-mode #cancelCourseForm:hover,
+body.dark-mode #cancelNoteForm:hover {
+    background-color: #37475e;
+}
+
+/* Upcoming deadlines heading */
+body.dark-mode marquee {
+    color: #e6edf7;
+    background: linear-gradient(to right, #1d2a3d, #25364d);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Progress bar background */
+body.dark-mode .progress-bar {
+    background-color: #2b394d;
+}
+
+/* Keep the progress fill green */
+body.dark-mode #progressFill {
+    background-color: #4ade80;
+}
+
+/* Keep deadline warnings visible */
+body.dark-mode .upcoming-item.overdue {
+    border-left-color: #f87171;
+}
+body.dark-mode .upcoming-item.overdue span {
+    color: #f87171;
+}
+body.dark-mode .upcoming-item.due-today {
+    border-left-color: #fbbf24;
+}
+body.dark-mode .upcoming-item.due-today span {
+    color: #fbbf24;
+}
+
+
+/* ==========================================
+   LIGHT MODE - STUDENT PRODUCTIVITY DASHBOARD
+========================================== */
+
+
+body,
+.sidebar,
+.welcome,
+.stat-card,
+.tasks-section,
+.courses-section,
+.upcoming-section,
+.progress-section,
+.notes-section,
+.task-card,
+.course-card,
+.upcoming-item,
+.note-form,
+.note-card,
+.empty-message,
+.topbar p,
+.welcome p,
+.stat-card h3,
+.section-header p,
+.task-card p,
+.upcoming-item p,
+.note-card p,
+marquee,
+#themeBtn,
+input,
+select,
+textarea,
+#cancelTaskForm,
+#cancelCourseForm,
+#cancelNoteForm,
+.progress-bar {
+    transition:
+        background-color 0.35s ease,
+        color 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+/* Keep the progress animation working too */
+#progressFill {
+    transition:
+        width 0.3s ease,
+        background-color 0.35s ease;
 }
