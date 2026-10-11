@@ -16,11 +16,11 @@
                 <h2>GCU Faisalabad</h2>
             </div>
             <nav class="sidebar-nav">
-                <a href="#" class="nav-link active">Dashboard</a>
-                <a href="#" class="nav-link">Courses</a>
-                <a href="#" class="nav-link">Assignments</a>
-                <a href="#" class="nav-link">Notes</a>
-                <a href="#" class="nav-link">Progress</a>
+                <a href="#dashboard-section" class="nav-link active">Dashboard</a>
+                <a href="#courses-section" class="nav-link">Courses</a>
+                <a href="#tasks-section" class="nav-link">Tasks</a>
+                <a href="#notes-section" class="nav-link">Notes</a>
+                <a href="#progress-section" class="nav-link">Progress</a>
             </nav>
         </aside>
 
@@ -31,7 +31,7 @@
             
             <header class="topbar">
                 <div>
-                    <h1>Student Dashboard</h1>
+                    <h1>Student Portal</h1>
                     <p>Manage your academic activities</p>
                 </div>
                 <button id="themeBtn">
@@ -39,40 +39,61 @@
                 </button>
             </header>
 
-            <!--Welcome Section-->
+            <!------------------Dashboard Section-------------------------->
 
-            <section class="welcome">
-                <h2>Welcome back, Duryab 👋</h2>
-                <p>Keep track of your courses, assignments and progress.</p>
-            </section>
+            <section id="dashboard-section" class="page-section active">
+
+                <section class="welcome">
+                    <h1>Student Dashboard</h1><br>
+                    <h2>Welcome back, Duryab 👋</h2>
+                    <p>Keep track of your courses, assignments and progress.</p>
+                </section>
 
             <!--Statistics Section-->
 
-            <section class="stats">
+                <section class="stats">
+                    <div class="stat-card">
+                        <h3>Total Courses</h3>
+                        <p id="courseCount">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Tasks</h3>
+                        <p id="taskCount">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Completed</h3>
+                        <p id="completedCount">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pending</h3>
+                        <p id="pendingCount">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Overdue</h3>
+                        <p id="overdueCount">0</p>
+                    </div>
+                </section>
 
-                <div class="stat-card">
-                    <h3>Total Courses</h3>
-                    <p id="courseCount">0</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Total Tasks</h3>
-                    <p id="taskCount">0</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Completed</h3>
-                    <p id="completedCount">0</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Pending</h3>
-                    <p id="pendingCount">0</p>
-                </div>
+                <!--Upcoming Section-->
+
+                <section class="upcoming-section">
+                    <div class="section-header">
+                        <!-- <h2>Upcoming Deadlines</h2> -->
+                        <marquee scrollamount="8">Upcoming Deadlines</marquee>
+                    </div>
+                    <div id="upcomingList" class="upcoming-list">
+                        <div class="empty-message">
+                            No upcoming deadlines.
+                        </div>
+                    </div>
+                </section>
+
             </section>
-
 
             <!--Progress Section-->
 
 
-            <section class="progress-section">
+            <section id="progress-section" class="page-section">
                 <div class="section-header">
                     <h2>Task Progress</h2>
                 </div>
@@ -86,24 +107,9 @@
                 </div>
             </section>
 
-
-            <!--Upcoming Section-->
-
-            <section class="upcoming-section">
-                <div class="section-header">
-                    <!-- <h2>Upcoming Deadlines</h2> -->
-                     <marquee scrollamount="8">Upcoming Deadlines</marquee>
-                </div>
-                <div id="upcomingList" class="upcoming-list">
-                    <div class="empty-message">
-                        No upcoming deadlines.
-                    </div>
-                </div>
-            </section>
-
             <!--Courses Section-->
 
-            <section class="courses-section">
+            <section id="courses-section" class="page-section">
                 <div class="section-header">
                     <h2>Courses</h2>
                     <button id="addCourseBtn">
@@ -132,28 +138,11 @@
 
             <!--Tasks Section-->
 
-            <section class="tasks-section">
+            <section id="tasks-section" class="page-section">
                 <div class="section-header">
                     <div>
                         <h2>Upcoming Tasks</h2>
                         <p>Your upcoming academic tasks</p>
-                    </div>
-                    <div class="selection">
-                        <select id="statusFilter">
-                            <option value="all">All</option>
-                            <option value="pending">Pending</option>
-                            <option value="completed">Completed</option>
-                        </select>
-                        <input
-                        type="text"
-                        id="searchTasks"
-                        placeholder="Search Tasks..."
-                        >
-                        <select id="sortTasks">
-                            <option value="default">Default</option>
-                            <option value="nearest">Nearest Due Date</option>
-                            <option value="farthest">Farthest Due Date</option>
-                        </select>
                     </div>
                     <button id="addTaskBtn">
                         + Add Task
@@ -185,6 +174,32 @@
                         Cancel
                     </button>
                 </div>
+
+                <div class="selection">
+                    <div class="statusFilter & searchTasks">
+                        <select id="statusFilter">
+                            <option value="all">All</option>
+                            <option value="pending">Pending</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <input
+                            type="text"
+                            id="searchTasks"
+                            placeholder="Search Tasks..."
+                        >
+                    </div>
+                    <div class="courseFilter & sort">
+                        <select id="courseFilter">
+                            <option value="all">All Courses</option>
+                        </select>
+                        <select id="sortTasks">
+                            <option value="default">Default</option>
+                            <option value="nearest">Nearest Due Date</option>
+                            <option value="farthest">Farthest Due Date</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div id="tasksList" class="tasks-list">
                     <div class="empty-message">
                         No tasks yet.
@@ -196,7 +211,7 @@
             <!--Notes Section-->
 
 
-            <section class="notes-section">
+            <section id="notes-section" class="page-section">
                 <div class="section-header">
                     <h2>Notes</h2>
                     <button id="addNoteBtn">

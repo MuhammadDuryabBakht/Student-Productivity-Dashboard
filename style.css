@@ -5,8 +5,11 @@
 }
 body{
     font-family: arial,sans-serif;
-    background-color: #f5f7fb;
+    background-color: hsl(220, 43%, 97%);
     color: #1f2937;
+}
+html{
+    scroll-behavior: smooth;
 }
 .app{
     display: flex;
@@ -15,19 +18,28 @@ body{
 .upcoming-section{
     margin-bottom: 20px;
 }
-.courses-section{
+#courses-section{
     margin-bottom: 20px;
 }
-.notes-section{
+#notes-section{
     margin-bottom: 20px;
 }
-.progress-section{
+#progress-section{
     margin-bottom: 20px;
 }
-.notes-section {
+#notes-section {
     margin-top: 20px;
 }
+.task-form{
+    margin-top:10px ;
+}
+.page-section {
+    display: none;
+}
 
+.page-section.active {
+    display: block;
+}
 
 
 /* =========================
@@ -161,7 +173,7 @@ body{
    Tasks
 ========================= */
 
-.tasks-section {
+#tasks-section {
     background-color: white;
     padding: 25px;
     border-radius: 12px;
@@ -389,9 +401,10 @@ body{
     outline: none;
 }
 .selection{
-    display: flex;
+    display: grid;
     align-items: center;
     gap: 0.75rem;
+    margin-bottom: 0.75rem;
 }
 .selection select{
     padding: 0.6rem 1rem;
@@ -416,7 +429,7 @@ body{
 ========================= */
 
 
-.courses-section {
+#courses-section {
     background-color: white;
     padding: 25px;
     border-radius: 12px;
@@ -578,7 +591,7 @@ marquee {
 ========================= */
 
 
-.progress-section {
+#progress-section {
     margin-top: 25px;
     padding: 20px;
     background-color: #fff;
@@ -615,7 +628,7 @@ marquee {
    Notes Section
 ========================= */
 
-.notes-section {
+#notes-section {
     background-color: white;
     padding: 25px;
     border-radius: 12px;
@@ -808,11 +821,11 @@ body.dark-mode {
 /* Main dashboard sections */
 body.dark-mode .welcome,
 body.dark-mode .stat-card,
-body.dark-mode .tasks-section,
-body.dark-mode .courses-section,
+body.dark-mode #tasks-section,
+body.dark-mode #courses-section,
 body.dark-mode .upcoming-section,
-body.dark-mode .progress-section,
-body.dark-mode .notes-section {
+body.dark-mode #progress-section,
+body.dark-mode #notes-section {
     background-color: #151f30;
     color: #e6edf7;
     border: 1px solid #304057;
@@ -965,11 +978,11 @@ body,
 .sidebar,
 .welcome,
 .stat-card,
-.tasks-section,
-.courses-section,
+#tasks-section,
+#courses-section,
 .upcoming-section,
-.progress-section,
-.notes-section,
+#progress-section,
+#notes-section,
 .task-card,
 .course-card,
 .upcoming-item,

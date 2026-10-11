@@ -40,6 +40,7 @@ const cancelTaskForm= document.querySelector("#cancelTaskForm");
 const searchTasks= document.querySelector("#searchTasks");
 const statusFilter = document.getElementById("statusFilter");
 const sortTasks = document.getElementById("sortTasks");
+const courseFilter = document.getElementById("courseFilter");
 
 // Progress Section
 
@@ -105,10 +106,20 @@ function saveNotes() {
 function updateStatistics() {
     const total = tasks.length;
     const totalCourse=courses.length;
+    const overdueCount = document.getElementById("overdueCount");
     const completed =tasks.filter(function (task) {
             return task.completed;
         }).length;
     const pending = total - completed;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const overdue = tasks.filter(function (task) {
+        const dueDate = new Date(task.dueDate);
+        dueDate.setHours(0, 0, 0, 0);
+        return !task.completed && dueDate < today;
+    }).length;
+
     let progress = 0;
     if (total > 0) {
         progress = Math.round((completed / total) * 100);
@@ -119,6 +130,7 @@ function updateStatistics() {
     completedCount.textContent = completed;
     pendingCount.textContent = pending;
     courseCount.textContent=totalCourse;
+    overdueCount.textContent = overdue;
 }
 
 
@@ -140,14 +152,18 @@ function renderTasks() {
 
     const searchText = searchTasks.value.toLowerCase();
     const selectedStatus = statusFilter.value;
+    const selectedCourse = courseFilter.value;
     const filteredTasks = tasks.filter(function (task) {
         const matchesSearch=task.title.toLowerCase().includes(searchText);
         const matchesStatus =
         selectedStatus === "all" ||
         (selectedStatus === "completed" && task.completed) ||
         (selectedStatus === "pending" && !task.completed);
+        const matchesCourse =
+        selectedCourse === "all" ||
+        task.course === selectedCourse;
         
-        return matchesSearch && matchesStatus;
+        return matchesSearch && matchesStatus && matchesCourse;
     });
     if (sortTasks.value === "nearest") {
         filteredTasks.sort(function (a, b) {
@@ -230,6 +246,21 @@ function resetTaskForm(){
     taskForm.classList.add("hidden");
 }
 
+function renderCourseFilter() {
+    courseFilter.innerHTML = `
+        <option value="all">All Courses</option>
+    `;
+    courses.forEach(function (course) {
+        const option = document.createElement("option");
+        option.value = course.name;
+        option.textContent = course.name;
+        courseFilter.appendChild(option);
+    });
+}
+courseFilter.addEventListener("change", function () {
+    renderTasks();
+});
+
 addTaskBtn.addEventListener("click", function () {
     taskForm.classList.remove("hidden");
 });
@@ -302,6 +333,7 @@ saveCourseBtn.addEventListener("click", function () {
     renderCourseOptions();
     renderCourse();
     resetCourseForm();
+    renderCourseFilter();
 });
 cancelCourseForm.addEventListener("click",function(){
     resetCourseForm();
@@ -336,6 +368,7 @@ function renderCourse() {
             updateStatistics();
             renderCourseOptions();
             renderCourse();
+            renderCourseFilter();
         });
         courseList.appendChild(courseCard);
     });
@@ -524,8 +557,63 @@ sortNotes.addEventListener("change", function () {
 
 
 
+
+const navLinks = document.querySelectorAll(".sidebar a");
+const pageSections = document.querySelectorAll(".page-section");
+
+navLinks.forEach(function (link) {
+    link.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        const targetId = link.getAttribute("href").substring(1);
+
+        // Update the active sidebar link
+        navLinks.forEach(function (navLink) {
+            navLink.classList.remove("active");
+        });
+
+        link.classList.add("active");
+        localStorage.setItem("activeSection", targetId);
+
+        // Show the selected section
+        pageSections.forEach(function (section) {
+            section.classList.remove("active");
+        });
+
+        const targetSection = document.getElementById(targetId);
+
+        if (targetSection) {
+            targetSection.classList.add("active");
+        }
+    });
+});
+const savedSection = localStorage.getItem("activeSection");
+
+if (savedSection) {
+    const savedLink = document.querySelector(
+        '.sidebar a[href="#' + savedSection + '"]'
+    );
+
+    const savedPage = document.getElementById(savedSection);
+
+    if (savedLink && savedPage) {
+        navLinks.forEach(function (link) {
+            link.classList.remove("active");
+        });
+
+        pageSections.forEach(function (section) {
+            section.classList.remove("active");
+        });
+
+        savedLink.classList.add("active");
+        savedPage.classList.add("active");
+    }
+}
+
+
 renderTasks();
 renderCourse();
 renderCourseOptions();
 renderUpcomingTasks();
 renderNotes();
+renderCourseFilter();
