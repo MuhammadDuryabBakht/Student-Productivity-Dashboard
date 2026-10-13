@@ -96,10 +96,10 @@ You can also open the project folder in Visual Studio Code and use a local devel
 <img width="100%" alt="Student Productivity Dashboard" src="assets/Dashboard.png">
 
 ### Tasks
-<img width="100%" alt="Student Productivity Tasks" src="assets/Tasks.png.png">
+<img width="100%" alt="Student Productivity Tasks" src="assets/Tasks.png">
 
 ### Courses
-<img width="100%" alt="Student Productivity Courses" src="assets/Courses.png.png">
+<img width="100%" alt="Student Productivity Courses" src="assets/Courses.png">
 
 ### Notes
 <img width="100%" alt="Student Productivity Notes" src="assets/Notes.png.png">
